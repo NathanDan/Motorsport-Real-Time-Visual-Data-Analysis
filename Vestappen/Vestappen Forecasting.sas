@@ -15,11 +15,15 @@ proc import file="/home/natdanjones0/Vestappen/Vestappen.xlsx"
     dbms=xlsx;
 run;
 
- proc arima data=WORK.Vestappen plots
+proc sort data=WORK.Vestappen out=VestappenForecast;
+	by lap;
+run;
+
+ proc arima data=WORK.VestappenForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
-	forecast lead=10 back=0 alpha=%sysevalf((100-1)/100);
+	forecast lead=5 back=0 alpha=%sysevalf((100-1)/100);
 	outlier;
 	run;
 quit;
