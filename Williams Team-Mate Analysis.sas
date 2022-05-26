@@ -45,12 +45,17 @@ proc sort data=WORK.Russell out=_SeriesPlotTaskData;
 title;
 
 title3 height=12pt "Russell's Top 5 Fastest Laps";
+PROC SQL; 
+CREATE TABLE WORK.FastLaps2 
+AS 
+SELECT Russell.lap, Russell.position, Russell.time, Russell.secs, Russell.avg_speed, Russell.tyre 
+FROM WORK.Russell Russell 
+WHERE 
+   ( Russell.position BETWEEN '1' AND '20' ) 
+ORDER BY 3 ASC; 
+QUIT;
 
-PROC SORT DATA = work.Russell;
-	BY time;
-RUN;
-
-proc print data=work.Russell(obs=5);
+proc print data=work.FastLaps2(obs=5);
     VAR lap position time secs avg_speed tyre;  /* optional: the VAR statement specifies variables */
 run;
 
