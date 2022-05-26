@@ -15,7 +15,11 @@ proc import file="/home/natdanjones0/Russell/Russell.xlsx"
     dbms=xlsx;
 run;
 
- proc arima data=WORK.Russell plots
+proc sort data=WORK.Russell out=RussellForecast;
+	by lap;
+run;
+
+ proc arima data=WORK.RussellForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
