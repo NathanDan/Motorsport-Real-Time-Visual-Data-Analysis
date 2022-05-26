@@ -15,7 +15,11 @@ proc import file="/home/natdanjones0/LeClerc/LeClerc.xlsx"
     dbms=xlsx;
 run;
 
- proc arima data=WORK.LeClerc plots
+proc sort data=WORK.LeClerc out=LeClercForecast;
+	by lap;
+run;
+
+ proc arima data=WORK.LeClercForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
