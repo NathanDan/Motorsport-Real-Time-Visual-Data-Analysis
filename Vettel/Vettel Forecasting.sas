@@ -19,7 +19,7 @@ run;
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
-	forecast lead=10 back=0 alpha=%sysevalf((100-1)/100);
+	forecast lead=5 back=0 alpha=%sysevalf((100-1)/100);
 	outlier;
 	run;
 quit;
