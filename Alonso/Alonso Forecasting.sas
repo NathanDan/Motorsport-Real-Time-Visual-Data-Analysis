@@ -13,8 +13,12 @@ ods graphics / reset width=6.4in height=4.8in imagemap;
 proc import file="/home/natdanjones0/Alonso/Alonso.xlsx"
     out=work.Alonso
     dbms=xlsx;
+    
+proc sort data=WORK.Alonso out=AlonsoForecast;
+	by lap;
+run;
 
- proc arima data=WORK.Alonso plots
+ proc arima data=WORK.AlonsoForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
