@@ -15,7 +15,11 @@ proc import file="/home/natdanjones0/Hamilton/Hamilton.xlsx"
     dbms=xlsx;
 run;
 
- proc arima data=WORK.Hamilton plots
+proc sort data=WORK.Hamilton out=HamiltonForecast;
+	by lap;
+run;
+
+ proc arima data=WORK.HamiltonForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
