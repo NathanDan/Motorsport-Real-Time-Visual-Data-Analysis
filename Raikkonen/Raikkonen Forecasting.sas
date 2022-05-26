@@ -15,7 +15,11 @@ proc import file="/home/natdanjones0/Raikkonen/Raikkonen.xlsx"
     dbms=xlsx;
 run;
 
- proc arima data=WORK.Raikkonen plots
+proc sort data=WORK.Raikkonen out=RaikkonenForecast;
+	by lap;
+run;
+
+ proc arima data=WORK.RaikkonenForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
