@@ -15,7 +15,11 @@ proc import file="/home/natdanjones0/Riccardo/Riccardo.xlsx"
     dbms=xlsx;
 run;
 
- proc arima data=WORK.Riccardo plots
+proc sort data=WORK.Riccardo out=RiccardoForecast;
+	by lap;
+run;
+
+ proc arima data=WORK.RiccardoForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
