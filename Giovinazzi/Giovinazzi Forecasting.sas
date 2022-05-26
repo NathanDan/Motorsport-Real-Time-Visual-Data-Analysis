@@ -15,7 +15,11 @@ proc import file="/home/natdanjones0/Giovinazzi/Giovinazzi.xlsx"
     dbms=xlsx;
 run;
 
- proc arima data=WORK.Giovinazzi plots
+proc sort data=WORK.Giovinazzi out=GiovinazziForecast;
+	by lap;
+run;
+
+ proc arima data=WORK.GiovinazziForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
