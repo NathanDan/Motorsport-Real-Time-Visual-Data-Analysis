@@ -15,7 +15,11 @@ proc import file="/home/natdanjones0/Bottas/Bottas.xlsx"
     dbms=xlsx;
 run;
 
- proc arima data=WORK.Bottas plots
+proc sort data=WORK.Bottas out=BottasForecast;
+	by lap;
+run;
+
+ proc arima data=WORK.BottasForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
