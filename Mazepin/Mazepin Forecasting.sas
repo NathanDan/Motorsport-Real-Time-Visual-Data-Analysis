@@ -15,7 +15,11 @@ proc import file="/home/natdanjones0/Mazepin/Mazepin.xlsx"
     dbms=xlsx;
 run;
 
- proc arima data=WORK.Mazepin plots
+proc sort data=WORK.Mazepin out=MazepinForecast;
+	by lap;
+run;
+
+ proc arima data=WORK.MazepinForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
