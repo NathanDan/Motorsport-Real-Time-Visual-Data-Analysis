@@ -15,7 +15,11 @@ proc import file="/home/natdanjones0/Perez/Perez.xlsx"
     dbms=xlsx;
 run;
 
- proc arima data=WORK.Perez plots
+proc sort data=WORK.Perez out=PerezForecast;
+	by lap;
+run;
+
+ proc arima data=WORK.PerezForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
