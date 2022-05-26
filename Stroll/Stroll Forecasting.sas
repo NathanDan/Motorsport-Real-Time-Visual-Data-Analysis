@@ -15,7 +15,11 @@ proc import file="/home/natdanjones0/Stroll/Stroll.xlsx"
     dbms=xlsx;
 run;
 
- proc arima data=WORK.Stroll plots
+proc sort data=WORK.Stroll out=StrollForecast;
+	by lap;
+run;
+
+ proc arima data=WORK.StrollForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
