@@ -15,7 +15,11 @@ proc import file="/home/natdanjones0/Ocon/Ocon.xlsx"
     dbms=xlsx;
 run;
 
- proc arima data=WORK.Ocon plots
+proc sort data=WORK.Ocon out=OconForecast;
+	by lap;
+run;
+
+ proc arima data=WORK.OconForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
