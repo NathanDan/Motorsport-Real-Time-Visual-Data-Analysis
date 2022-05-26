@@ -15,7 +15,11 @@ proc import file="/home/natdanjones0/Norris/Norris.xlsx"
     dbms=xlsx;
 run;
 
- proc arima data=WORK.Norris plots
+proc sort data=WORK.Norris out=NorrisForecast;
+	by lap;
+run;
+
+ proc arima data=WORK.NorrisForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
