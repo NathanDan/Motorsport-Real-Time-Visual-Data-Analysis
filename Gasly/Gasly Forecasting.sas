@@ -14,7 +14,12 @@ proc import file="/home/natdanjones0/Gasly/Gasly.xlsx"
     out=work.Gasly
     dbms=xlsx;
 run;
- proc arima data=WORK.Gasly plots
+
+proc sort data=WORK.Gasly out=GaslyForecast;
+	by lap;
+run;
+
+ proc arima data=WORK.GaslyForecast plots
      (only)=(forecast(forecast));
 	identify var=time (1 1);
 	estimate noint method=CLS;
